@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<stdbool.h>
 #include<string.h>
+//for all the users
 struct User
 {
     char userFullName[30];
@@ -14,6 +15,7 @@ struct User
     int price;
     char resolution[20];
 };
+//for all the movies
 struct Movie
 {
     int primary;
@@ -24,8 +26,8 @@ struct Movie
     int agelimit;
 };
 
-struct User *users=NULL;
-
+struct User *users=NULL; //initial state null
+//movie list
 struct Movie movies[]=
 {
 
@@ -46,7 +48,8 @@ struct Movie movies[]=
 
 };
 
-int usercount=0;
+int usercount=0; //initial use 0
+//using for dynamic memory
 void resizearray()
 {
     users=realloc(users, (usercount + 1) * sizeof(struct User));
@@ -57,29 +60,10 @@ void resizearray()
     }
 
 }
-
+//for registartion
 void registerUserInput(char userFullName[30],char userEmail[30],char userName[15], int age,char password[15])
 {
 
-    printf("Enter Your FullName\n");
-    fgets(userFullName,30,stdin);
-    userFullName[strcspn(userFullName,"\n")]='\0';
-
-    printf("Enter Your Email\n");
-    fgets(userEmail,30,stdin);
-    userEmail[strcspn(userEmail,"\n")]='\0';
-
-    printf("Enter Your Age\n");
-    scanf("%d",&age);
-    getchar();
-
-    printf("Set Your User Name\n");
-    fgets(userName, 15, stdin);
-    userName[strcspn(userName, "\n")] = '\0';
-
-    printf("Set Your Password\n");
-    fgets(password,15,stdin);
-    password[strcspn(password,"\n")]='\0';
 
     resizearray();
 
@@ -93,16 +77,17 @@ void registerUserInput(char userFullName[30],char userEmail[30],char userName[15
 }
 
 
-
+//payment function
 int payment()
 {
 
     char typePlan;
     char resolution[20];
     int price;
-    printf("Choose the plan that's right for your.\n*Watch all you want. Ad-free. \nRecommendations just for you.\n");
+    printf("Choose the plan that's right for your.\n\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\t|Watch all you want. Ad-free. | \n\t|Recommendations just for you.|");
+    printf("\n\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("\n");
-    printf("Type of plan: [m-Mobile, b-Basic, s-Standard, p-Premium]\n");
+    printf("Type of plan[m-Mobile, b-Basic, s-Standard, p-Premium]: ");
     scanf(" %c", &typePlan);
 
         if(typePlan=='m')
@@ -114,7 +99,8 @@ int payment()
 
         strcpy(users[usercount - 1].resolution, resolution);
          printf("\n");
-        printf("Device you can use to watch: \nPhone \nTablet\n");
+        printf("Device you can use to watch: \n\t--------\n\t|Phone | \n\t|Tablet|");
+        printf("\n\t--------\n");
     }
 
     else if(typePlan=='b')
@@ -125,7 +111,9 @@ int payment()
         users[usercount - 1].price = price;
         strcpy(users[usercount - 1].resolution, resolution);
          printf("\n");
-        printf("Device you can use to watch: \nPhone \nTablet \nComputer \nTV");
+
+        printf("Device you can use to watch: \n\t----------\n\t|Phone   | \n\t|Tablet  | \n\t|Computer| \n\t|TV      |");
+        printf("\n\t----------\n");
     }
 
     else if(typePlan=='s')
@@ -136,7 +124,8 @@ int payment()
         users[usercount - 1].price = price;
         strcpy(users[usercount - 1].resolution, resolution);
         printf("\n");
-        printf("Device you can use to watch: \nPhone \nTablet \nComputer \nTV");
+       printf("Device you can use to watch: \n\t----------\n\t|Phone   | \n\t|Tablet  | \n\t|Computer| \n\t|TV      |");
+        printf("\n\t----------\n");
     }
     else if(typePlan=='p')
     {
@@ -146,8 +135,8 @@ int payment()
         users[usercount - 1].price = price;
         strcpy(users[usercount - 1].resolution, resolution);
          printf("\n");
-        printf("Device you can use to watch: \nPhone \nTablet \nComputer \nTV");
-        printf("\n");
+        printf("Device you can use to watch: \n\t----------\n\t|Phone   | \n\t|Tablet  | \n\t|Computer| \n\t|TV      |");
+        printf("\n\t----------\n");
     }
 
     else
@@ -157,17 +146,17 @@ int payment()
     }
     printf("\n");
     char card[20];
-    printf("Enter Your Card Details~\n");
+    printf("Enter Your Card Details: ");
     scanf("%s",card);
-    printf("Wait a Moment......\n");
-    printf("Your Payment Is Complete\nFind Your Payment Details At Your Email %s\n",users[usercount-1].userEmail);
+    printf("\n\tWait a Moment......\n");
+    printf("\tYour Payment Is Complete\n\tFind Your Payment Details At Your Email \n%s\n",users[usercount-1].userEmail);
     users[usercount-1].payment_status=1;
     printf("\n");
      }
 
 
 
-
+//authentication check
 int login(char Inputusername[15],char Inputuserpassword[15])
 {
     for(int i=0;i<usercount;i++)
@@ -179,7 +168,7 @@ int login(char Inputusername[15],char Inputuserpassword[15])
     }
     return 0;
 }
-
+//personal details
 
 void personalDetails(char userName[],char password[])
 {
@@ -189,19 +178,19 @@ void personalDetails(char userName[],char password[])
         {
             printf("\n");
             printf("// -----YOUR PERSONAL INFORMATION----- //\n");
-            printf("Full Name- %s\n",users[i].userFullName);
-            printf("User Name- %s\n",users[i].userName);
-            printf("Email- %s\n",users[i].userEmail);
-            printf("User Age- %d\n",users[i].age);
-            printf("You Are Watching Movie In- %s\n",users[i].resolution);
-            printf("You Purchased- %c Package\n",users[i].type_plan);
-            printf("You Paid So Far- %d\n",users[i].price);
+            printf("Full Name: %s",users[i].userFullName);
+            printf("\nUser Name: %s",users[i].userName);
+            printf("\nEmail: %s",users[i].userEmail);
+            printf("\nUser Age: %d",users[i].age);
+            printf("\nYou Are Watching Movie In: %s\n",users[i].resolution);
+            printf("You Purchased: %c Package\n",users[i].type_plan);
+            printf("You Paid So Far: RM%d\n",users[i].price);
              printf("\n");
 
         }
     }
 }
-
+//reccomendation
 void recommendation(char Inputusername[],int age)
 {
     for(int i=0;i<sizeof(movies)/sizeof(movies[0]);i++)
@@ -232,10 +221,10 @@ void recommendation(char Inputusername[],int age)
     }
     }
 }
-
+//showing movie
 void movieShow(option)
 {
-    printf("Great Choice!Enjoy Watching The Movie\n");
+    printf("\nGreat Choice!Enjoy Watching The Movie\n");
     printf("+-------------------------------------------+\n");
     printf("|                                           |\n");
     printf("|           Movie is Playing Here           |\n");
@@ -260,12 +249,13 @@ void recommendation_show(int option)
             if(strcmp(movies[j].genre,movie_genre)==0 && option!=movies[j].primary)
             {
             printf("\n");
-            printf("Movie %d\n", j + 1);
-            printf("Name: %s\n", movies[j].name);
-            printf("Length: %s\n", movies[j].length);
-            printf("Details: %s\n", movies[j].details);
-            printf("Genre: %s\n", movies[j].genre);
-            printf("-----------------------------------------------\n");
+            printf("----------------------------------------------------------\n");
+            printf("Movie   1: %d\n", j + 1);
+            printf("Name    : %s\n", movies[j].name);
+            printf("Length  : %s\n", movies[j].length);
+            printf("Details : %s\n", movies[j].details);
+            printf("Genre   : %s\n", movies[j].genre);
+            printf("----------------------------------------------------------\n");
             printf("\n");
             }
             }
@@ -280,13 +270,13 @@ void see_movies_genre(char selection_genre[])
         if(strcmp(selection_genre,movies[i].genre)==0)
         {
 
-
-            printf("Movie %d\n", i + 1);
-            printf("Name: %s\n", movies[i].name);
-            printf("Length: %s\n", movies[i].length);
-            printf("Details: %s\n", movies[i].details);
-            printf("Genre: %s\n", movies[i].genre);
-            printf("-----------------------------------------------\n");
+            printf("----------------------------------------------------------\n");
+            printf("Movie   : %d\n", i + 1);
+            printf("Name    : %s\n", movies[i].name);
+            printf("Length  : %s\n", movies[i].length);
+            printf("Details : %s\n", movies[i].details);
+            printf("Genre   : %s\n", movies[i].genre);
+            printf("----------------------------------------------------------\n");
             printf("\n");
         }
     }
@@ -298,9 +288,10 @@ void genre(char Inputusername[],int age)
     if(age>=18)
     {
         printf("\n");
-        printf("N.B. YOUR AGE IS ABOVE OR EQUAL 18 THAT IS WHY R-RATED MOVIES ARE VISIBLE FOR YOU,\nIF LESS THAN 18 YOU WOULD NOT SEE THE OPTION.\n");
-        printf("Select Any Option\n1.Drama\n2.R-Rated\n3.Action\n4.War\n5.Sci-Fi\n");
-        printf("\n");
+        printf("============================================================================================\n");
+        printf("\tN.B. YOUR AGE IS ABOVE OR EQUAL 18 THAT IS WHY R-RATED MOVIES ARE VISIBLE FOR YOU,\n\tIF LESS THAN 18 YOU WOULD NOT SEE THE OPTION.\n");
+        printf("============================================================================================\n");;
+        printf("Select Any Option: \n1.Drama\n2.R-Rated\n3.Action\n4.War\n5.Sci-Fi\n");
         getchar();
         char selection_genre[15];
         int option;
@@ -425,16 +416,37 @@ int main()
     char admin_user_name[15];
     char admin_password[15];
 
+
     printf("-------------Welcome To Netflix Video Streaming Platform-------------");
     printf("\n");
     while(true)
     {
-    printf("Choose Any Option-\n1.Registration\n2.Login\n");
+    printf("Choose Any Option:\n1.Registration\n2.Login\n");
     int decision;
     scanf("%d",&decision);
     getchar();
         if(decision==1)
     {
+            printf(" -------------PLEASE FILL IN ALL THE DETAILS BELOW---------------");
+    printf("\n\nEnter Your FullName   : ");
+    fgets(userFullName,30,stdin);
+    userFullName[strcspn(userFullName,"\n")]='\0';
+
+    printf("Enter Your Email      : ");
+    fgets(userEmail,30,stdin);
+    userEmail[strcspn(userEmail,"\n")]='\0';
+
+    printf("Enter Your Age        : ");
+    scanf("%d",&age);
+    getchar();
+
+    printf("Set Your User Name    : ");
+    fgets(userName, 15, stdin);
+    userName[strcspn(userName, "\n")] = '\0';
+
+    printf("Set Your Password     : ");
+    fgets(password,15,stdin);
+    password[strcspn(password,"\n")]='\0';
         printf("\n");
         registerUserInput(userFullName,userEmail,userName,age,password);
         printf("\n");
@@ -447,29 +459,28 @@ int main()
     else if(decision==2)
     {
         printf("\n");
-        printf("Login As~\n1.Admin\n2.User\n");
+        printf("Login As: \n1.Admin\n2.User\n");
         int decision2;
         scanf("%d",&decision2);
         if(decision2==2)
         {
-            printf("*********Enter Your Login Credentials Here*********\n");
+            printf("\n*******Enter Your Login Credentials Here*******\n");
             printf("\n");
-            printf("Enter Your Username~\n");
+            printf("Enter Your Username  : ");
             scanf("%s",&Inputusername);
 
-            printf("Enter Your Password~\n");
+            printf("Enter Your Password  : ");
             scanf("%s",&Inputuserpassword);
 
             int auth=0;
             if(login(Inputusername,Inputuserpassword)==1)
             {
                 auth=1;
-                printf("Authentication Successful\n");
+                printf("\n\nAuthentication Successful: \n");
                 while(auth=1)
                 {
                 printf("\n");
 
-                printf("\n");
                 printf("1. Search Movie By Genre\n2. See All Available Movies\n3. User Information\n4. Logout\n");
 
                 int decision3;
@@ -487,7 +498,7 @@ int main()
 
                 }else if(decision3==2)
                 {
-                    printf("// Recommended Movies For You //\n[If your age less than 18,then some movies will be exclude from you recommendation]\n");
+                    printf("\n// Recommended Movies For You //\n[If your age less than 18,then some movies will be exclude from you recommendation]\n");
                     printf("\n");
                     for(int i=0;i<usercount;i++)
                     {
@@ -496,7 +507,7 @@ int main()
                             users[i].age=age;
                           recommendation(Inputusername,age);
                           printf("\n");
-                          printf("Select Any Movie~\n");
+                          printf("Select Any Movie: ");
                           getchar();
                           int option;
                           scanf("%d",&option);
@@ -534,12 +545,11 @@ int main()
             int auth=0;
             printf("------------Welcome To Admin Login Panel------------\n");
             printf("\n");
-            printf("//    Enter Your Admin Login Crdential    //\n");
-             printf("\n");
+            printf("//    Enter Your Admin Login Credential    //\n");
             printf("Enter Your Admin Id [Please Enter admin1* To Login In The Admin Panel]\n");
-             printf("\n");
+            printf("\n");
             scanf("%s",admin_user_name);
-            printf("Enter Your Admin Password [Please Enter admin1* To Login In The Admin Panel]\n");
+            printf("Enter Your Admin Password [Please Enter admin1* To Login In The Admin Panel]\n"); //username and pasword is admin1
             scanf("%s",admin_password);
             if(strcmp(admin_user_name,"admin1")==0 && strcmp(admin_password,"admin1")==0)
             {
@@ -603,4 +613,3 @@ int main()
 free(users);
 return 0;
 }
-
